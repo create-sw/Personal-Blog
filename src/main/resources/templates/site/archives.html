@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <title>文章归档 </title>
+    <link rel="shortcut icon" th:href="@{/others/static/images/icon.png}" type="image/x-icon">    <!--<link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" th:href="@{/others/css/amazeui.min.css}">
+    <link rel="stylesheet" th:href="@{/others/css/all.css}">
+    <link rel="stylesheet" th:href="@{/others/css/tags.css}">
+    <link rel="stylesheet" th:href="@{/others/css/comment.css}">
+    <link rel="stylesheet" th:href="@{/others/css/categories.css}">
+    <link rel="stylesheet" th:href="@{/others/css/plugs_paging.css}">
+    <link href="https://lib.baomitu.com/font-awesome/5.8.0/css/fontawesome.min.css" rel="stylesheet">
+
+     <!--Layui-->
+    <link th:href="@{/others/admin/layui/css/layui.css}" rel="stylesheet" />
+     <!--font-awesome-->
+     <link th:href="@{/others/static/plug/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+     <!--全局样式表-->
+     <link th:href="@{/others/static/css/global.css}" rel="stylesheet" />
+     <!--本页样式表-->
+     <!--<link th:href="@{/static/static/css/article.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" th:href="@{/others/css/archives.css}">
+    <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+
+    <meting-js
+            id="168853794"
+            lrc-type="0"
+            server="netease"
+            order="random"
+            type="playlist"
+            fixed="true"
+            list-olded="true"
+            list-folded="true"
+            list-max-height="400px"
+            preload="none"
+
+    >
+    </meting-js>
+
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+</head>
+
+<body style="background-image: url(/others/static/images/bg.png)">
+<div id="app">
+    <!--引入共有头部-->
+    <!-- <div th:replace="header :: header"></div> -->
+     <!-- 导航 -->
+     <nav th:replace="header :: header-nav('archives')">
+    </nav>
+    <!--页面主体-->
+    <div id="main"  >
+        <div class="am-container">
+            <div class="am-g">
+                <div class="site-inner">
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="categories">
+                            <div th:each="archives:${archives_list}">
+<!--                                <div th:each="articles:${archives.articles}">-->
+                            <div class="categories-title">
+
+                                <h3 style="font-size: 20px;margin-left: 30px">归档</h3>
+                                <div class="categories-comment am-animation-slide-top">
+                                    <div class="category">
+                                        <span><a class="categoryName"><span th:text="${archives.date}" ></span></a>
+                   ( <span class="categoryNum" th:text="${archives.count}"></span> )
+                    </span></div>
+                                </div>
+                                </div>
+<!--                                </div>-->
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="am-u-sm-12 am-u-md-9">
+                        <div class="categoryTimeline">
+                            <!--消除留言先加载视觉效果-->
+                            <div class="timeline timeline-wrap">
+                                <div class="timeline-row">
+                                <span class="node" style="-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;">
+                                    <i class="am-icon-calendar"></i>
+                                </span>
+                                    <h1 class="title am-animation-slide-top" >
+                                        #很好!&nbsp;目前总计<span class="archivesNum">  <span th:text="${statistics.articles}" ></span> </span>篇日志，请继续努力哦 ！
+                                    </h1>
+                                </div>
+
+
+
+                                <div class="timeline-row-major">
+                                    <span class="node am-animation-slide-top am-animation-delay-1"></span>
+                                    <div th:each="archives:${archives_list}">
+                                    <div class="nodeYear am-animation-slide-top am-animation-delay-1"><span th:text="${(archives.date).substring(0, 4)}" ></span> 年<span th:text="${(archives.date).substring(5, 7)}"></span>月</div>
+
+                                        <div th:each="articles:${archives.articles}">
+                                <div class="timeline-row-major">
+                                    <div style="height: 88.4px">
+                                        <span class="node am-animation-slide-top am-animation-delay-1"></span>
+                                        <div class="content am-comment-main am-animation-slide-top am-animation-delay-1">
+                                        <header class="am-comment-hd" >
+                                            <div class="contentTitle am-comment-meta">
+
+                                            <a th:href="@{/articles/articles.cid}"><span th:text="${articles.title}"></span></a>
+                                            </div>
+
+                                        </header>
+                                            <div class="am-comment-bd">
+                                                <i class="am-icon-calendar"> <a th:text="${commons.fmtdate(articles.created)}"></a></i>
+                                                <i class="am-icon-folder"> <a href="#" th:text="${articles.tags}"></a></i>
+                                                <i class="am-comment-bd-tags am-icon-tag"> <a href="#" th:text="${articles.type}"></a></i>
+
+                                            </div>
+                                        </div></div>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="my-row" id="page-father">
+                                        <div id="pagination">
+                                            <ul class="am-pagination  am-pagination-centered">
+                                                <li class="am-disabled"><a href="#">&laquo; 上一页</a></li>
+                                                <li class="am-active"><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">4</a></li>
+                                                <li><a href="#">5</a></li>
+                                                <li><a href="#">下一页 &raquo;</a></li>
+                                                </ul></div>
+                                        </div>
+
+                            </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <!-- 底部 -->
+    <footer class="blog-footer">
+        <p><span>Copyright</span><span>&copy;</span><span>2020-2021</span><a href="http://www.apenixx.top">Mr.Chen</a><span>Design By CWX</span></p>
+        <p><a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备2020404号</a></p>
+    </footer>
+
+    <!--分享窗体-->
+    <div class="blog-share layui-hide">
+        <div class="blog-share-body">
+            <div style="width: 200px;height:100%;">
+                <div class="bdsharebuttonbox">
+                    <a class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                    <a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                    <a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    <a class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/others/js/plugs_paging.js}"></script>
+
+<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<!--<script th:src="@{/others/js/archives.js}"></script>-->
+<!-- layui.js -->
+<script th:src="@{/others/static/plug/layui/layui.js}"></script>
+<!-- 全局脚本 -->
+<script th:src="@{/others/static/js/global.js}"></script>
+
+
+
+</body>
+</html>

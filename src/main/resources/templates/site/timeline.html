@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="header::header-fragment">
+    <link rel="shortcut icon" th:href="@{/others/static/images/icon.png}" type="image/x-icon">
+
+</head>
+<title>日记 -CWX</title>
+
+<!-- 本页样式表 -->
+<link th:href="@{/others/static/css/timeline.css}" rel="stylesheet" />
+<!--动画-->
+<link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+<script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+
+<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<meting-js
+        id="168853794"
+        lrc-type="0"
+        server="netease"
+        order="random"
+        type="playlist"
+        fixed="true"
+        list-olded="true"
+        list-folded="true"
+        list-max-height="400px"
+        preload="none"
+>
+</meting-js>
+
+<body>
+    <!-- 导航 -->
+    <nav th:replace="header::header-nav('timeline')">
+    </nav>
+    <!-- 主体（一般只改变这里的内容） -->
+    <div class="blog-body">
+        <div class="blog-container">
+            <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+                <a th:href="@{/blog/index}" title="网站首页">网站首页&nbsp;</a>
+                <a th:href="@{/blog/timeline}" title="点点滴滴">&nbsp;点点滴滴&nbsp;</a>
+                <a><cite>&nbsp;时光轴</cite></a>
+            </blockquote>
+            <div class="blog-main">
+                <!--<div class="child-nav shadow">-->
+                    <!--<span class="child-nav-btn child-nav-btn-this">时光轴</span>-->
+                    <!--<span class="child-nav-btn">笔记墙</span>-->
+                <!--</div>-->
+                <div class="timeline-box shadow">
+                    <div class="timeline-main">
+                        <h1><i class="fa fa-clock-o"></i>时光轴<span> —— 记录生活点点滴滴</span></h1>
+                        <div class="timeline-line"></div>
+                        <span id="timelineId">
+    <div class="timeline-year">
+                        <h2><a class="yearToggle" href="javascript:;">2020年</a><i class="fa fa-caret-down fa-fw"></i></h2>
+                   <div class="timeline-month">
+                        <h3 class=" animated fadeInLeft"><a class="monthToggle" href="javascript:;">03月</a><i class="fa fa-caret-down fa-fw"></i></h3>
+                    <li style="margin-bottom: 30px;"><div class="h4  animated fadeInLeft">
+                        <p class="date"style="margin-left: 40px;margin-top: 8px;">2020-03-16 22:17:42</p>
+                            </div>
+                        <p style="margin-left: 183px;margin-top: -20px;" class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                        <div class="content animated fadeInRight" style="margin-top: -20px;"><a style="color:#fff" ><p>调整移动端导航条样式，加入评论定位功能以及音乐播放器获取网易云音乐接口，网站version 1.0 基本完成！！！<img src="/image/bqb1.jpg" alt=""></p></a></div>
+                        <div class="clear"></div></li>
+                          <li style="margin-bottom: 30px;"><div class="h4  animated fadeInLeft">
+                        <p class="date"style="margin-left: 40px;margin-top: 8px;">2020-03-15 07:30:16</p>
+                            </div>
+                        <p style="margin-left: 183px;margin-top: -20px;" class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                        <div class="content animated fadeInRight" style="margin-top: -20px;"><a style="color:#fff" ><p>完成日记和友链功能！网站大体已经搭建完成，但是还有很多细节的功能没有实现。</p></a></div>
+                        <div class="clear"></div></li>
+                          <li style="margin-bottom: 30px;"><div class="h4  animated fadeInLeft">
+                        <p class="date"style="margin-left: 40px;margin-top: 8px;">2020-03-14 13:36:23</p>
+                            </div>
+                        <p style="margin-left: 183px;margin-top: -20px;" class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                        <div class="content animated fadeInRight" style="margin-top: -20px;"><a style="color:#fff" ><p>引入editormd发现一堆坑，差点心态爆炸...疯狂debug中！！！</p></a></div>
+                        <div class="clear"></div></li>
+                          <li style="margin-bottom: 30px;"><div class="h4  animated fadeInLeft">
+                        <p class="date"style="margin-left: 40px;margin-top: 8px;">2020-03-13 21:20:42</p>
+                            </div>
+                        <p style="margin-left: 183px;margin-top: -20px;" class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                        <div class="content animated fadeInRight" style="margin-top: -20px;"><a style="color:#fff" ><p>完成资源分享功能，困的一批 ~<img
+                                src="/image/bqb2.jpg" alt=""></p></a></div>
+                        <div class="clear"></div></li>
+                          <li style="margin-bottom: 30px;"><div class="h4  animated fadeInLeft">
+                        <p class="date"style="margin-left: 40px;margin-top: 8px;">2020-03-12 08:45:28</p>
+                            </div>
+                        <p style="margin-left: 183px;margin-top: -20px;" class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                        <div class="content animated fadeInRight" style="margin-top: -20px;"><a style="color:#fff" ><p>实现了后台登录功能，将后端的框架全都搭好了，累啊~  <img
+                                src="/image/24.gif" alt=""></p></a></div>
+                        <div class="clear"></div></li>
+                           <li style="margin-bottom: 30px;"><div class="h4  animated fadeInLeft">
+                        <p class="date"style="margin-left: 40px;margin-top: 8px;">2020-03-11 08:15:46</p>
+                            </div>
+                        <p style="margin-left: 183px;margin-top: -20px;" class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                        <div class="content animated fadeInRight" style="margin-top: -20px;"><a style="color:#fff" ><p>最近看到几位大佬自己做的博客网站，感觉很酷，自己也忍不住要动手，正好自己
+                            刚入门了springboot想要拿个项目练练手，萌发了建立自己的博客网站想法，废话不多说，冲冲冲~  <img src="/image/66.gif" alt=""></p></a></div>
+                        <div class="clear"></div></li>
+
+                   </div>
+    </div>
+                        </span>
+                        <h1 style="padding-top:4px;padding-bottom:2px;margin-top:40px;"><i class="fa fa-hourglass-end"></i>THE END</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <footer class="blog-footer">
+        <p><span>Copyright</span><span>&copy;</span><span>2020-2021</span><a href="http://www.apenixx.top">Mr.Chen</a><span>Design By CWX</span></p>
+        <p><a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备2020404号</a></p>
+    </footer>
+
+    <!--分享窗体-->
+    <div class="blog-share layui-hide">
+        <div class="blog-share-body">
+            <div style="width: 200px;height:100%;">
+                <div class="bdsharebuttonbox">
+                    <a class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                    <a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                    <a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    <a class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--遮罩-->
+    <div class="blog-mask animated layui-hide"></div>
+    <!-- layui.js -->
+    <script th:src="@{/others/static/plug/layui/layui.js}"></script>
+    <!-- 全局脚本 -->
+    <script th:src="@{/others/static/js/global.js}"></script>
+    <!-- 本页脚本 -->
+<!--    <script th:src="@{/others/static/js/timeline.js}"></script>-->
+
+
+</body>
+</html>

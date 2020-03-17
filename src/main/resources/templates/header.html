@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="header-fragment">
+    <meta http-equiv="Content-Type" content="text/html; Charset=gb2312">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="shortcut icon" th:href="@{/others/static/images/icon.png}" type="image/x-icon">
+
+    <link rel="stylesheet" th:href="@{/others/admin/layui/css/layui.css}">
+    <link th:href="@{/others/static/plug/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+
+    <!--全局样式表-->
+    <link th:href="@{/others/static/css/global.css}" rel="stylesheet" />
+
+
+
+
+
+</head>
+<body>
+<!-- 导航 -->
+<nav class="blog-nav layui-header"  th:fragment="header-nav(path)">
+    <div class="blog-container">
+
+
+        <a class="blog-logo" th:href="@{/}">Mr.Chen</a>
+        <!-- 导航菜单 -->
+        <ul class="layui-nav" lay-filter="nav">
+            <li class="layui-nav-item" th:class="${path} == 'home'?'layui-nav-item layui-this':'layui-nav-item'">
+                <a th:href="@{/blog/}"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
+            </li>
+            <li class="layui-nav-item" th:class="${path} == 'article'?'layui-nav-item layui-this':'layui-nav-item'">
+                <a th:href="@{/blog/article}"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
+            </li>
+            <li class="layui-nav-item" th:class="${path} == 'archives'?'layui-nav-item layui-this':'layui-nav-item'">
+                <a th:href="@{/blog/archives}"><i class="fa fa-calendar-check-o fa-fw"></i>&nbsp;归档</a>
+            </li>
+            <li class="layui-nav-item" th:class="${path} == 'resource'?'layui-nav-item layui-this':'layui-nav-item'">
+                <a th:href="@{/blog/resources}"><i class="fa fa-tags fa-fw"></i>&nbsp;资源分享</a>
+            </li>
+            <li class="layui-nav-item" th:class="${path} == 'timeline'?'layui-nav-item layui-this':'layui-nav-item'">
+                <a th:href="@{/blog/timeline}"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;点点滴滴</a>
+            </li>
+            <li class="layui-nav-item" th:class="${path} == 'about'?'layui-nav-item layui-this':'layui-nav-item'">
+                <a th:href="@{/blog/about}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+            </li>
+            <li  class="layui-nav-item" style="margin-left: 20px;">
+                <a th:href="@{/admin}">登录</a>
+            </li>
+            <li  class="layui-nav-item">
+                <a href="#">注册</a>
+            </li>
+
+                <dl class="layui-nav-child">
+                    <dd><a th:href="@{/admin/index}">基本资料</a></dd>
+                    <dd><a class="news" th:href="@{/admin/index}">我的消息</a></dd>
+                    <dd><a th:href="@{/admin/index}">安全设置</a></dd>
+                    <dd ><a th:href="@{/admin/index}">后台管理</a></dd>
+                    <dd><a th:href="@{/logout}">退出登录</a></dd>
+                </dl>
+                </li>
+        </ul>
+
+
+        <!-- 手机和平板的导航开关 -->
+        <a class="blog-navicon" href="javascript:;">
+            <i class="fa fa-navicon"></i>
+        </a>
+    </div>
+</nav>
+
+<script th:src="@{/others/static/plug/layui/layui.js}"></script>
+<!-- 全局脚本 -->
+<script th:src="@{/others/static/js/global.js}"></script>
+
+
+</body>
+</html>

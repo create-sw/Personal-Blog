@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <title> 个人博客网站</title>
+    <link rel="shortcut icon" th:href="@{/others/static/images/icon.png}" type="image/x-icon">
+    <link th:href="@{/others/index/layui/css/layui.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/others/index/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/others/index/css/index_style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/others/index/css/animate.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="menu" class="hover_animation menu_open" data-mark="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div id="navgation" class="navgation navgation_close">
+        <ul class="point">
+            <li><a th:href="@{/}">首页</a></li>
+            <li><a th:href="@{/blog/index}">博客</a></li>
+            <li><a th:href="@{/blog/about#tabIndex=4}">留言</a></li>
+        </ul>
+        <div class="logo"><a>Mr.Chen</a></div>
+    </div>
+    <div class="section" id="section1">
+        <div class="fp-tablecell">
+            <div class="page1">
+                <div class="nav wow zoomIn" data-wow-duration="2s">
+                    <h1>Mr.Chen</h1>
+                    <p>灵明无着，物来顺应，未来不迎，当时不杂，即过不恋。
+                    </p>
+                    <a class="layui-btn layui-btn-normal" style="margin-top: 20px" th:href="@{/blog/index}">Enter Blog</a>
+                </div>
+                <a class="next wow fadeInUp" data-wow-duration="2s" id="next"></a>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section2">
+        <div class="fp-tablecell">
+            <div class="page2">
+                <div class="warp-box">
+                    <div class="new-article">
+                        <div class="inner wow fadeInDown" data-wow-delay=".2s">
+                            <h1>热门文章</h1>
+                            <p>
+                                很想给你写封信,告诉你这里的天气.
+                                <br>昨夜的那场电影,还有我的心情.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+
+                        <div th:each="archive,archiveStat : ${archives.list}" data-wow-delay=".2s" class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                    <img th:src="@{/others/static/images/blog_bg1.jpg}" alt="图片">
+                                    <a th:href="${commons.blogPermalink(archive.cid)}" class="link"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="news-content">
+                                    <h4>
+                                        <a th:href="${commons.blogPermalink(archive.cid)}" th:text="${archive.title}" >
+                                            标题
+                                        </a>
+                                    </h4>
+                                    <div class="date" th:utext="${commons.fmtdate(archive.created)}">
+                                        2017年2月16日
+                                    </div>
+                                    <p >
+                                        很想给你写封信,告诉你这里的天气. 昨夜的那场电影,还有我的心情.
+                                    </p>
+                                    <a th:href="@{/blog/index}" class="btn">
+                                        阅读更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div   th:each="archive,archiveStat : ${archives.list}" data-wow-delay=".2s" class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                    <img th:src="@{/others/static/images/blog_bg1.jpg}" alt="图片">
+                                    <a th:href="${commons.blogPermalink(archive.cid)}" class="link"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="news-content">
+                                    <h4>
+                                        <a th:href="${commons.blogPermalink(archive.cid)}"  >
+                                            java超神之路，学习路线图
+                                        </a>
+                                    </h4>
+                                    <div class="date" >
+                                        2020年3月16日
+                                    </div>
+                                    <p >
+                                        很想给你写封信,告诉你这里的天气. 昨夜的那场电影,还有我的心情.
+                                    </p>
+                                    <a th:href="@{/blog/index}" class="btn">
+                                        阅读更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div   th:each="archive,archiveStat : ${archives.list}" data-wow-delay=".2s" class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                    <img th:src="@{/others/static/images/blog_bg1.jpg}" alt="图片">
+                                    <a th:href="${commons.blogPermalink(archive.cid)}" class="link"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="news-content">
+                                    <h4>
+                                        <a th:href="${commons.blogPermalink(archive.cid)}"  >
+                                            如何学习SSM框架，SSM框架简介
+                                        </a>
+                                    </h4>
+                                    <div class="date" >
+                                        2020年3月18日
+                                    </div>
+                                    <p >
+                                        很想给你写封信,告诉你这里的天气. 昨夜的那场电影,还有我的心情.
+                                    </p>
+                                    <a th:href="@{/blog/index}" class="btn">
+                                        阅读更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section3">
+        <div class="fp-tablecell">
+            <div class="page3">
+                <div class="warp-box">
+                    <div class="warp">
+                        <div class="inner">
+                            <div class="links">
+                                <ul>
+                                    <li class="wow fadeInLeft"><a th:href="@{/about}">关于</a></li>
+                                    <li class="wow fadeInRight"><a th:href="@{/blog/about#tabIndex=3}">+友情链接</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section4">
+        <div class="fp-tablecell">
+            <div class="page4">
+                <div class="warp-box">
+                    <div class="about">
+                        <div class="inner">
+                            <h1 class="wow fadeInLeft">冲，就硬冲！</h1>
+                            <p class="wow fadeInRight">
+                                爱好电影，游戏，音乐。闲来无事喜欢在一些游戏里虚度光阴，撸起代码就会废寝忘食。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer wow fadeInUp" id="contact">
+        <div class="footer-top">
+            <div class="container">
+                <div class="layui-row">
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="single-widget about">
+                            <div class="footer-logo">
+                                <h2>Mr.Chen</h2>
+                            </div>
+                            <p>剑气纵横三万里，一剑光寒十九洲。</p>
+                            <div class="button">
+                                <a th:href="@{/about}" class="btn layui-btn layui-btn-normal">About Me</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="single-widget">
+                            <h2>相关链接</h2>
+                            <ul class="social-icon">
+                                <li class="active"><a th:href="@{/blog/}"><i class="fa fa-book"></i>博文</a></li>
+                                <li class="active"><a th:href="@{/blog/about#tabIndex=4}"><i class="fa fa-comments"></i>留言</a></li>
+                                <li class="active"><a th:href="@{/blog/resources}"><i class="fa fa-share"></i>资源</a></li>
+                                <li class="active"><a th:href="@{/blog/timeline}"><i class="fa fa-snowflake-o"></i>日记</a></li>
+                                <li class="active"><a th:href="@{/blog/archives}"><i class="fa fa-files-o"></i>归档</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+                        <div class="single-widget contact">
+                            <h2>联系我</h2>
+                            <ul class="list">
+                                <li><i class="fa fa-wechat"></i>微信: 15679016961a</li>
+                                <li><i class="fa fa-qq"></i>QQ: 42410334 </li>
+                                <li><i class="fa fa-envelope"></i>邮箱: 42410334@qq.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="layui-row">
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 text-center">
+                        <p>Copyright &copy; 2020-2021 Mr.Chen All Rights Reserved V.1.0.0 粤ICP备2020404号</p>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </footer>
+    <script th:src="@{/others/index/layui/layui.js}"></script>
+    <script th:src="@{/others/index/js/wow.min.js}"></script>
+    <script th:src="@{/others/index/js/index.js}"></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta http-equiv="Content-Type" content="text/html; Charset=gb2312">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Mr.Chen个人博客网站</title>
+    <link rel="shortcut icon" th:href="@{/others/static/images/icon.png}" type="image/x-icon">
+    <!--Layui-->
+    <link rel="stylesheet" th:href="@{/others/admin/layui/css/layui.css}">
+    <!--font-awesome-->
+    <link th:href="@{/others/static/plug/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <!--全局样式表-->
+    <link th:href="@{/others/static/css/global.css}" rel="stylesheet" />
+    <!-- 本页样式表 -->
+    <link th:href="@{/others/static/css/home.css}" rel="stylesheet" />
+
+    <!--<link rel="stylesheet" th:href="@{/static/css/index.css}">-->
+    <!--动画-->
+    <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .page {
+            height: 34px;
+            line-height: 34px;
+        }
+        .page a{
+            display: inline-block;
+            border: 1px solid #ededed;
+            padding: 0 12px;
+            color: #3e3e3e;
+            font-size: 14px;
+            font-family: tahoma,simsun;
+            text-decoration: none;
+
+        }
+        .page a:hover {
+            color: #009688;
+            border-color: #009688;
+        }
+        .page .active,
+        .page .active:hover {
+            color: #fff;
+            background: #009688;
+            border: solid 1px #009688;
+
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav th:replace="header :: header-nav('home')">
+    </nav>
+    <!-- 主体（一般只改变这里的内容） -->
+    <div class="blog-body">
+        <!-- canvas -->
+        <canvas id="canvas-banner" style="background: #393D49;"></canvas>
+        <!--为了及时效果需要立即设置canvas宽高，否则就在home.js中设置-->
+        <script type="text/javascript">
+            var canvas = document.getElementById('canvas-banner');
+            canvas.width = window.document.body.clientWidth - 10;//减去滚动条的宽度
+            if (screen.width >= 992) {
+                canvas.height = window.innerHeight * 1 / 3;
+            } else {
+                canvas.height = window.innerHeight * 2 / 7;
+            }
+        </script>
+        <!-- 这个一般才是真正的主体内容 -->
+        <div class="blog-container">
+            <div class="blog-main">
+                <!-- 网站公告提示 -->
+                <div class="home-tips shadow">
+                    <i style="float:left;line-height:17px;" class="fa fa-volume-up"></i>
+                    <div class="home-tips-container">
+                        <span style="color: #009688">增加响应式，手机端一样可以查看，留言。</span>
+                        <span style="color: red">网站建设太辛苦了，希望能够帮助到更多人，大家一起加油!</span>
+                        <span style="color: red">如果你觉得网站做得还不错，来留言区评论一下吧！<a th:href="@{/blog/about#tabIndex=4}" target="_blank" style="color:#01AAED">点我前往</a></span>
+                        <span style="color: red">Mr.Chen   ——— &nbsp;一个Java小白的个人博客，网站采用Layui为前端框架，springboot作为后端框架!</span>
+                    </div>
+                </div>
+                <!--左边文章列表-->
+                <div class="blog-main-left">
+
+                    <div th:if="${#lists.isEmpty(articles.list)}" class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">
+                        未搜索到与【<span style="color: #FF5722;" >java</span>】有关的文章，随便看看吧！
+                    </div>
+                    <th:block th:each="article,articleStat : ${articles.list}">
+                        <div class="article shadow animated zoomIn" style="text-overflow: ellipsis;">
+                        <div class="article-left">
+                            <img th:src="@{/others/static/images/blog_bg1.jpg}" style="height: 150px;width: 190px;" alt="随机生成的图片" />
+                        </div>
+                        <div class="article-right">
+                            <div class="article-title">
+                                <a th:href="${commons.blogPermalink(article.cid)}" th:text="${article.title}"></a>
+     <!-- 可升级-->             <span class="article_is_yc" >原创</span>&nbsp;<img  style="margin-top: -2%;" th:src="@{/others/static/images/hot2.png}" />
+                            </div>
+                            <div class="article-abstract" style="height: 115px;width:100%;text-overflow: ellipsis; overflow: hidden;-webkit-text-overflow:ellipsis; ">
+                                <span style="text-overflow: ellipsis;" th:utext="${commons.article(article.content)}"></span>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="article-footer">
+                            <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span th:utext="${commons.fmtdate(article.created)}"></span>
+                            <i class="fa fa-user"></i>&nbsp;&nbsp;<span  class="article-author">作者的名称</span>
+                            <i class="fa fa-folder"></i>&nbsp<th:block th:text="${article.tags}"></th:block></a>
+                            &nbsp;&nbsp;
+                            <i class="fa fa-tag">springboot java </i>&nbsp;
+
+                            <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;50</span>
+                            <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;40</span>
+                        </div>
+                        </div>
+                    </th:block>
+<!--                    分页-->
+                    <div  class="page" style="text-align: center;">
+                    <div th:replace="comm/macros::pageNav(${articles},'上一页','下一页','blog/page')"></div>
+                    </div>
+                </div>
+                <!--右边小栏目-->
+                <div class="blog-main-right">
+                    <div class="blogerinfo shadow  animated lightSpeedIn">
+                        <div class="blogerinfo-figure">
+                            <img src="https://apenixx-oss.oss-cn-shenzhen.aliyuncs.com/public/BlogInfo/avater1.jpg" alt="ApeNixX" />
+                        </div>
+                        <p class="blogerinfo-nickname">Mr.Chen</p>
+                        <p class="blogerinfo-introduce">撸猫，宅男，射击游戏</p>
+                        <p class="blogerinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;江西 - 鹰潭</p>
+                        <hr />
+                        <div class="blogerinfo-contact">
+                            <a target="_blank" id="qq1" title="QQ交流" href="javascript:;"><i class="fa fa-qq fa-2x"></i></a>
+                            <a target="_blank" id="co1" title="给我留言" th:href="@{/user/about#tabIndex=4}"><i class="fa fa-commenting fa-2x"></i></a>
+                            <a target="_blank" id="wc1" title="微信" href="javascript:;"><i class="fa fa-weixin fa-2x"></i></a>
+                            <a target="_blank" id="gh1"  href="https://weibo.com/u/3207295037"><i class="fa fa-weibo fa-2x"></i></a>
+                        </div>
+                    </div>
+                    <div></div><!--占位-->
+                    <div class="blog-card shadow  animated fadeInUp">
+                        <div class="blog-card-title">
+                            <span class="icon"><i class="layui-icon" aria-hidden="true">&#xe756;</i></span>
+                            <span class="text">热文排行</span>
+                        </div>
+                        <ul class="blog-card-ul">
+                            <li>1</span><a href="#">Web安全之跨站请求伪造CSRF</a><span style="font-size: 12px;float: right;">500阅/300赞</span></li>
+                        </ul>
+                    </div>
+                    <br>
+                    <div class="blog-card shadow   animated fadeInUp">
+                        <div class="blog-card-title">
+                            <span class="icon"><i class="layui-icon" aria-hidden="true">&#xe66e;</i></span>
+                            <span class="text">标签云</span>
+                        </div>
+                        <div class="tag-cloud">
+                            <div class="widget-tag-cloud" id="wrap">
+                               <a href="#">
+           <!--可升级-->                      Java,  css ,  Html , python</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="blog-card shadow layui-anim layui-anim-scaleSpring   animated fadeInUp">
+                        <div class="blog-card-title">
+                            <span class="icon"><i class="layui-icon" aria-hidden="true"></i></span>
+                            <span class="text">最新评论</span>
+                        </div>
+                        <!--<div class="hotusers-header"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;最新评论</div>-->
+
+                    </div>
+                    <br>
+                    <div class="blog-card shadow   animated fadeInUp">
+                        <div class="blog-card-title">
+                            <span class="icon"><i class="layui-icon" aria-hidden="true">&#xe609;</i></span>
+                            <span class="text">一路走来</span>
+                        </div>
+                        <!--<div class="hotusers-header"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;一路走来</div>-->
+                        <div class="timeline-box" style="padding: 8px;">
+                        <ul class="layui-timeline" id="sayId">
+                            <li class="layui-timeline-item animated fadeInUp"><i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">2020-02-14</h3><p>新增模糊查询功能，输入关键字匹配文章内容及文章名称，建站基本完成。</p>
+                                </div>
+                            </li>
+                            <li class="layui-timeline-item animated fadeInUp"><i class="layui-icon layui-timeline-axis"></i><div class="layui-timeline-content layui-text"><h3 class="layui-timeline-title">2020-02-13</h3><p>博客《ApeNixX's Blog》弃用第三方评论插件（畅言），自己的终于开发完成了，新增找回密码功能.</p></div></li><li class="layui-timeline-item animated fadeInUp"><i class="layui-icon layui-timeline-axis"></i><div class="layui-timeline-content layui-text"><h3 class="layui-timeline-title">2020-02-12</h3><p>博客《ApeNixX's Blog》域名备案通过了审核。</p></div></li><li class="layui-timeline-item animated fadeInUp"><i class="layui-icon layui-timeline-axis"></i><div class="layui-timeline-content layui-text"><h3 class="layui-timeline-title">2020-01-30</h3><p>博客《ApeNixX's Blog》第二版，前端使用Absolutely大佬提供的基于Layui框架搭建的模板.</p></div></li><li class="layui-timeline-item animated fadeInUp"><i class="layui-icon layui-timeline-axis"></i><div class="layui-timeline-content layui-text"><h3 class="layui-timeline-title">2020-01-20</h3><p>博客《ApeNixX's Blog》第一版。后端使用SpringBoot+Mybatis+Redis，前端使用AmazeUI搭建.</p></div></li></ul>
+                        </div>
+                        </div>
+                    <br>
+                    <div class="blog-card shadow   animated fadeInUp">
+                        <div class="blog-card-title">
+                            <span class="icon"><i class="layui-icon" aria-hidden="true">&#xe702;</i></span>
+                            <span class="text">网站信息</span>
+                        </div>
+                        <!--<div class="hotusers-header"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;网站信息</div>-->
+                        <div class="site-info">
+                            <ul class="site-default"><li> 
+                                <i class="fa fa-file-text fa-fw"></i><span class="site-default-word">文章总数</span>：5&nbsp;篇
+                                </li>
+                            <li> 
+                                <i class="fa fa-tags fa-fw"></i><span class="site-default-word">标签总数</span>：5&nbsp;个
+                                </li>
+                            <li> 
+                                <i class="fa fa-comments fa-fw"></i><span class="site-default-word">留言总数</span>：40&nbsp;条
+                                </li>
+                           <li>
+                                <i class="fa fa-commenting-o fa-fw"></i><span class="site-default-word">评论总数</span>：60&nbsp;条
+                                </li>
+                            <li>
+                                <i class="fa fa-pencil fa-fw"></i><span class="site-default-word">网站最后更新</span>：<span class="siteUpdateTime" style="display: block;">2020年4月15日19点</span>
+                                </li>
+                            <li> 
+                                <i class="fa fa-clock-o fa-fw"></i><span class="site-default-word">网站运行天数</span>：<span class="siteRunningTime" > </span>
+                                </li></ul>
+                        </div>
+                       
+                        
+                    </div>
+                    <br>
+                    <div class="blog-card shadow   animated fadeInUp">
+                        <div class="blog-card-title">
+                            <span class="icon"><i class="layui-icon" aria-hidden="true"></i></span>
+                            <span class="text">友情链接</span>
+                        </div>
+                        <!--<div class="hotusers-header"><i class="fa fa-link" aria-hidden="true"></i>&nbsp;友情链接</div>-->
+                        <ul class="blogroll">
+<!--                            <li th:each="fl:${links}"><a target="_blank" th:href="@{fl.url}" th:title="${fl.blogger}" th:text="${fl.blogger}">Layui</a></li>-->
+                            友情链接：可升级！
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 底部 -->
+    <footer class="blog-footer">
+        <p><span>Copyright</span><span>&copy;</span><span>2020-2021</span><a href="http://www.apenixx.top">ApeNixX</a><span>Design By LBH</span></p>
+        <p><a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备20013507号</a></p>
+    </footer>
+    <!--侧边导航-->
+
+    <ul class="layui-nav layui-nav-tree layui-nav-side blog-nav-left layui-hide" lay-filter="nav">
+        <li class="layui-nav-item" style="margin-bottom: 30px;">
+
+            <dl class="layui-nav-child">
+                <dd><a th:href="@{/admin/index}">基本资料</a></dd>
+                <dd><a class="news" th:href="@{/admin/index}">我的消息</a></dd>
+                <dd><a th:href="@{/admin/index}">安全设置</a></dd>
+                <dd ><a th:href="@{/admin/index}">后台管理</a></dd>
+                <dd><a th:href="@{/logout}">退出登录</a></dd>
+            </dl>
+        </li>
+
+        <li class="layui-nav-item">
+            <a th:href="@{/blog/}"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
+        </li>
+        <li class="layui-nav-item  layui-this">
+            <a th:href="@{/category/1}"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
+        </li>
+        <li class="layui-nav-item">
+            <a th:href="@{/user/archives}"><i class="fa fa-calendar-check-o fa-fw"></i>&nbsp;归档</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="#"><i class="fa fa-tags fa-fw"></i>&nbsp;资源分享</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="#"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;点点滴滴</a>
+        </li>
+        <li class="layui-nav-item">
+            <a th:href="@{/about}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+        </li>
+        <li  class="layui-nav-item" style="float: right;">
+            <a th:href="@{/admin}">&nbsp;&nbsp;登录</a>
+        </li>
+        <li class="layui-nav-item" style="float: right;">
+            <a href="#">&nbsp;&nbsp;注册</a>
+        </li>
+    </ul>
+    <!--分享窗体-->
+    <div class="blog-share layui-hide">
+        <div class="blog-share-body">
+            <div style="width: 200px;height:100%;">
+                <div class="bdsharebuttonbox">
+                    <a class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                    <a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                    <a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    <a class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--遮罩-->
+    <div class="blog-mask animated layui-hide"></div>
+    <!-- layui.js -->
+    <script th:src="@{/others/static/plug/layui/layui.js}"></script>
+    <!-- 全局脚本 -->
+    <script th:src="@{/others/static/js/global.js}"></script>
+    <!-- 本页脚本 -->
+    <script th:src="@{/others/static/js/home.js}"></script>
+    <script th:src="@{/others/js/index.js}"></script>
+    <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+
+    <script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+    <!-- require MetingJS -->
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+    <meting-js
+    id="168853794"
+    lrc-type="0"
+    server="netease"
+    order="list"
+    type="playlist"
+    fixed="true"
+    list-olded="true"
+    list-folded="true"
+    preload="none"
+    list-max-height="400px"
+    >
+    </meting-js>
+        <!--动态改变便签颜色大小-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            var obj=$("#wrap a");//获取a标签中的数据
+
+            function rand(num){
+//parseInt();将字符串转为整数
+//Math.random()；生成随机数
+                return parseInt(Math.random()*num+1);
+            }
+
+            function randomcolor(){
+                var str=Math.ceil(Math.random()*16777215).toString(16);
+                if(str.length<6){
+                    str="0"+str;
+                }
+                return str;
+            }
+
+            for(len=obj.length,i=len;i--;){
+                obj[i].style.left=rand(20)+"px";//标签左右间距
+                obj[i].style.top=rand(20)+"px";//标签上下间距
+                obj[i].className="color"+rand(5);
+                obj[i].style.zIndex=rand(5);//设置元素的堆叠顺序
+                obj[i].style.fontSize=rand(5)+15+"px";//随机字体大小这里是10-20
+                obj[i].style.color="#"+randomcolor();//字体颜色
+                obj[i].style.padding=rand(10)+"px";
+            }
+        });
+
+    </script>
+        <!--获取url参数-->
+    <script type="text/javascript">
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if(r!=null)return  decodeURIComponent(r[2]); return null;
+        }
+
+        $('.active ,.a1').click(function () {
+            var query=GetQueryString("tag");
+            if(query==null){
+                var href = this.href;
+            }else{
+                var href = this.href+"?tag="+query;
+            }
+            window.location.href = href;
+            return false;
+        });
+    </script>
+<script>
+    var tips;
+    var layer = layui.layer;
+    $('#qq1').on({
+        mouseover: function () {
+            tips = layer.tips('<img src="/others/static/images/QQ.png" style="width:120px;height:120px;"/ >', this, {
+                tips: 1,
+                time: 0
+            })
+        },
+        mouseout: function () {
+            layer.close(tips);
+        }
+    });
+
+    $('#wc1').on({
+        mouseover: function () {
+            tips = layer.tips('<img src="/others/static/images/weixin.png" style="width:120px;height:120px;"/ >', this, {
+                tips: 1,
+                time: 0
+            })
+        },
+        mouseout: function () {
+            layer.close(tips);
+        }
+    })
+    $('#co1').on({
+        mouseover: function () {
+            tips = layer.tips('去留言~', this, {
+                tips: 1,
+                time: 0
+            })
+        },
+        mouseout: function () {
+            layer.close(tips);
+        }
+    })
+    $('#gh1').on({
+        mouseover: function () {
+            tips = layer.tips('去我的微博~', this, {
+                tips: 1,
+                time: 0
+            })
+        },
+        mouseout: function () {
+            layer.close(tips);
+        }
+    })
+
+</script>
+</body>
+</html>

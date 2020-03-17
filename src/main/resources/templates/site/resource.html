@@ -1,0 +1,93 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="header::header-fragment">
+    <link rel="shortcut icon" th:href="@{/others/static/images/icon.png}" type="image/x-icon">
+</head>
+<title>资源分享</title>
+
+<!-- 本页样式表 -->
+<link th:href="@{/others/static/css/resource.css}" rel="stylesheet" />
+<!--动画-->
+<link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+
+<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<meting-js
+        id="168853794"
+        lrc-type="0"
+        server="netease"
+        order="random"
+        type="playlist"
+        fixed="true"
+        list-olded="true"
+        list-folded="true"
+        list-max-height="400px"
+        preload="none"
+
+>
+</meting-js>
+
+<script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+<body>
+    <!-- 导航 -->
+    <nav th:replace="header::header-nav('resource')">
+    </nav>
+    <!-- 主体（一般只改变这里的内容） -->
+    <div class="blog-body">
+        <div class="blog-container">
+            <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+                <a th:href="@{/blog/index}" title="网站首页">网站首页&nbsp;</a>
+                <a><cite>&nbsp;资源分享</cite></a>
+            </blockquote>
+            <div class="blog-main">
+                <div class="blog-main">
+                    <div class="child-nav shadow">
+                        <span class="child-nav-btn child-nav-btn-this" onclick="init('')">全部</span>
+                        <span class="child-nav-btn" onclick="init('常用工具')">常用工具</span>
+                        <span class="child-nav-btn" onclick="init('视频教程')">视频教程</span>
+                        <span class="child-nav-btn" onclick="init('电子书')">电子书</span>
+                        <span class="child-nav-btn" onclick="init('常用网站')">常用网站</span>
+                        <span class="child-nav-btn" onclick="init('影视娱乐')">影视娱乐</span>
+
+                    </div>
+                    <div class="resource-main"  id="resource-main">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <footer class="blog-footer">
+        <p><span>Copyright</span><span>&copy;</span><span>2020-2021</span><a href="#">Mr.Chen</a><span>Design By CWX</span></p>
+        <p><a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备2020404号</a></p>
+    </footer>
+    <!--侧边导航-->
+
+    <!--分享窗体-->
+    <div class="blog-share layui-hide">
+        <div class="blog-share-body">
+            <div style="width: 200px;height:100%;">
+                <div class="bdsharebuttonbox">
+                    <a class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                    <a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                    <a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    <a class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--遮罩-->
+    <div class="blog-mask animated layui-hide"></div>
+    <!-- layui.js -->
+    <script th:src="@{/others/static/plug/layui/layui.js}"></script>
+    <!-- 全局脚本 -->
+    <script th:src="@{/others/static/js/global.js}"></script>
+    <script th:src="@{/others/static/js/resource.js}"></script>
+
+</body>
+</html>
